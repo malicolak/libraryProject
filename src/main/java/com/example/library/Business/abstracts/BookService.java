@@ -1,11 +1,12 @@
 package com.example.library.Business.abstracts;
 
-import com.example.library.Entity.concretes.Book;
+import com.example.library.Business.requests.CreateBookRequest;
+import com.example.library.Business.responses.GetAllBooksResponse;
 
-import java.util.ArrayList;
-
+import java.util.List;
 
 
 public interface BookService {
-    ArrayList<Book> getAll();
+    List<GetAllBooksResponse> getAll();
+    void add(CreateBookRequest request);
 }
