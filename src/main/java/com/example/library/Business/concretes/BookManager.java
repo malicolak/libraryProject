@@ -1,51 +1,54 @@
 package com.example.library.Business.concretes;
 
 import com.example.library.Business.abstracts.BookService;
+import com.example.library.Business.core.utilities.mappers.ModelMapperService;
 import com.example.library.Business.requests.CreateBookRequest;
+import com.example.library.Business.requests.UpdateBookRequest;
 import com.example.library.Business.responses.GetAllBooksResponse;
+import com.example.library.Business.responses.GetByIdBookResponse;
 import com.example.library.DataAccess.abstracts.BookRepository;
 import com.example.library.Entity.concretes.Book;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class BookManager implements BookService {
 
     private BookRepository bookRepository;
+    private ModelMapperService modelMapperService;
 
-    public BookManager(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @Override
     public List<GetAllBooksResponse> getAll() {
-        List<Book> books = bookRepository.findAll();
-
-        List<GetAllBooksResponse> getAllBooksResponses = new ArrayList<GetAllBooksResponse>();
-
-        for (Book book : books) {
-            GetAllBooksResponse response = new GetAllBooksResponse();
-            response.setId(book.getId());
-            response.setTitle(book.getTitle());
-            response.setAuthor(book.getAuthor());
-            response.setPublisher(book.getPublisher());
-            response.setPageCount(book.getPageCount());
-            response.setPublishDate(book.getPublishDate());
-            getAllBooksResponses.add(response);
-        }
-        return getAllBooksResponses;
+        List<Book> books = this.bookRepository.findAll();
+        List<GetAllBooksResponse> responses = books.stream().map(book -> this.modelMapperService.forResponse().map(book,GetAllBooksResponse.class)).toList();
+        return responses;
     }
 
     @Override
     public void add(CreateBookRequest request) {
-        Book book = new Book();
-        book.setTitle(request.getTitle());
-        book.setAuthor(request.getAuthor());
-        book.setPublisher(request.getPublisher());
-        book.setPageCount(request.getPageCount());
-        book.setPublishDate(request.getPublishDate());
-        bookRepository.save(book);
+        Book book = this.modelMapperService.forRequest().map(request,Book.class);
+        this.bookRepository.save(book);
+    }
+
+    @Override
+    public void delete(int id) {
+        this.bookRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(UpdateBookRequest request) {
+        Book book = this.modelMapperService.forRequest().map(request,Book.class);
+        this.bookRepository.save(book);
+    }
+
+    @Override
+    public GetByIdBookResponse getById(int id) {
+        Book book = this.bookRepository.findById(id).orElseThrow();
+        GetByIdBookResponse response = this.modelMapperService.forResponse().map(book,GetByIdBookResponse.class);
+        return response;
     }
 }
