@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yeni Kitap Ekle</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin-left: 42%;
+        margin-top: 6%;
+        background-color: burlywood;
+    }
+    h1 { color: #333; }
+    label { display: block; margin-top: 10px; }
+    input { width: 20%; padding: 8px; margin-top: 5px; }
+    button {
+        margin-top: 10px;
+        margin-left: 6%;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+<h1>Yeni Kitap Ekle</h1>
+<form id="bookForm">
+    <label>Başlık:</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label>Yazar:</label><br>
+    <input type="text" name="author" required><br><br>
+
+    <label>Yayınevi:</label><br>
+    <input type="text" name="publisher"><br><br>
+
+    <label>Sayfa Sayısı:</label><br>
+    <input type="number" name="pageCount"><br><br>
+
+    <label>Yayın Tarihi:</label><br>
+    <input type="date" name="publishDate"><br><br>
+
+    <button type="submit">Kitabı Ekle</button>
+</form>
+
+<script>
+    document.getElementById('bookForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const book = {
+            title: formData.get('title'),
+            author: formData.get('author'),
+            publisher: formData.get('publisher'),
+            pageCount: (formData.get('pageCount')),
+            publishDate: formData.get('publishDate')
+        };
+        fetch('/api/books/add'+'?title='+book.title+'&author='+book.author+'&publisher='+book.publisher+'&pageCount='+book.pageCount+'&publishDate='+book.publishDate,{
+            method: 'POST'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Kitap başarıyla eklendi!');
+                    window.location.href = '/books.html'; // Liste sayfasına yönlendirme
+                } else {
+                    alert('Bir hata oluştu.');
+                }
+            });
+        console.log(JSON.stringify(book));
+    });
+</script>
+</body>
+</html>

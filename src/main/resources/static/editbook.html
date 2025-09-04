@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kitap Güncelle</title>
+</head>
+<body>
+<h1>Kitap Güncelle!</h1>
+    <form id="editForm">
+
+        <label>Başlık:</label>
+        <input type="text" id="title" /><br/>
+
+        <label>Yazar:</label>
+        <input type="text" id="author" /><br/>
+
+        <label>Yayınevi:</label>
+        <input type="text" id="publisher" /><br/>
+
+        <label>Sayfa Sayısı:</label>
+        <input type="number" id="pageCount" /><br/>
+
+        <label>Yayın Tarihi:</label>
+        <input type="date" id="publishDate" /><br/>
+
+    <button type="submit">Güncelle</button>
+</form>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin-left: 42%;
+        margin-top: 10%;
+        background-color: burlywood;
+    }
+    h1 { color: #333; }
+    label { display: block; margin-top: 10px; }
+    input { width: 20%; padding: 8px; margin-top: 5px; }
+    button {
+        margin-top: 10px;
+        margin-left: 6%;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+</body>
+<script>
+    // URL'den id'yi al
+    const urlParams = new URLSearchParams(window.location.search);
+    const bookId = urlParams.get("id");
+    console.log(bookId);
+
+    // Kitap bilgilerini çek
+    fetch("/api/books/getbyid/" + bookId)
+        .then(res => res.json())
+        .then(book => {
+            document.getElementById("title").value = book.title;
+            document.getElementById("author").value = book.author;
+            document.getElementById("publisher").value = book.publisher;
+            document.getElementById("pageCount").value = book.pageCount;
+            document.getElementById("publishDate").value = book.publishDate;
+        });
+
+        document.getElementById("editForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const updatedBook = {
+        title: document.getElementById("title").value,
+        author: document.getElementById("author").value,
+        publisher: document.getElementById("publisher").value,
+        pageCount: parseInt(document.getElementById("pageCount").value),
+        publishDate: document.getElementById("publishDate").value
+    };
+
+        fetch('api/books/update' + "?id=" + bookId + "&title=" + updatedBook.title + "&author=" + updatedBook.author + "&publisher=" + updatedBook.publisher + "&pageCount=" + updatedBook.pageCount + "&publishDate=" + updatedBook.publishDate, {
+        method: 'PUT'
+        } )
+        .then(response => {
+        if (response.ok) {
+        alert("Kitap başarıyla güncellendi!");
+        window.location.href = "/books.html"; // Listeye geri dön
+    } else {
+        alert("Güncelleme başarısız.");
+    }
+    });
+    });
+
+</script>
+</html>
