@@ -6,6 +6,7 @@ import com.example.library.Business.requests.CreateBookRequest;
 import com.example.library.Business.requests.UpdateBookRequest;
 import com.example.library.Business.responses.GetAllBooksResponse;
 import com.example.library.Business.responses.GetByIdBookResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class BooksController {
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void add(CreateBookRequest request){
+    public void add(@Valid CreateBookRequest request){
         this.bookService.add(request);
     }
 
@@ -39,7 +40,7 @@ public class BooksController {
 
     @PutMapping("/update")
     @ResponseStatus(code = HttpStatus.OK)
-    public void update(UpdateBookRequest request){
+    public void update(@Valid UpdateBookRequest request){
         this.bookService.update(request);
     }
 
