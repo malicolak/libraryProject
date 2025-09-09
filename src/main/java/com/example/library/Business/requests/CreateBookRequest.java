@@ -13,15 +13,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class CreateBookRequest {
 
-    @NotNull(message = "Kitap adı boş olamaz!")
-    @Size(min = 3,max = 100,message = "Kitap adı 3 ile 100 karakter arası olmalıdır!")
+    @NotNull(message = "Kitap adı giriniz!")
     @NotBlank(message = "Kitap adı boş olamaz!")
     private String title;
 
-    @NotNull(message = "Yazar bilgisi boş olamaz!")
+    @NotNull(message = "Yazar bilgisi giriniz!")
+    @NotBlank(message = "Yazar bilgisi boş olamaz!")
     private String author;
 
-    @NotNull(message = "Yayıncı bilgisi boş olamaz!")
+    @NotNull(message = "Yayıncı bilgisi giriniz!")
+    @NotBlank(message = "Yayıncı bilgisi boş olamaz!")
     private String publisher;
 
     @NotNull(message = "Kitap sayfa sayısı boş olamaz!")

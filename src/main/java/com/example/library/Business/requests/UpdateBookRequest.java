@@ -14,14 +14,15 @@ public class UpdateBookRequest {
     private int id;
 
     @NotNull(message = "Kitap adı boş olamaz!")
-    @Size(min = 3,max = 100,message = "Kitap adı 3 ile 100 karakter arası olmalıdır!")
     @NotBlank(message = "Kitap adı boş olamaz!")
     private String title;
 
     @NotNull(message = "Yazar bilgisi boş olamaz!")
+    @NotBlank(message = "Yazar bilgisi boş olamaz!")
     private String author;
 
     @NotNull(message = "Yayıncı bilgisi boş olamaz!")
+    @NotBlank(message = "Yayıncı bilgisi boş olamaz!")
     private String publisher;
 
     @NotNull(message = "Kitap sayfa sayısı boş olamaz!")
