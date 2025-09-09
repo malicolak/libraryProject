@@ -54,21 +54,34 @@
             title: formData.get('title'),
             author: formData.get('author'),
             publisher: formData.get('publisher'),
-            pageCount: (formData.get('pageCount')),
+            pageCount: formData.get('pageCount'),
             publishDate: formData.get('publishDate')
         };
-        fetch('/api/books/add'+'?title='+book.title+'&author='+book.author+'&publisher='+book.publisher+'&pageCount='+book.pageCount+'&publishDate='+book.publishDate,{
-            method: 'POST'
+        console.log(book);
+        fetch('api/books/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(book)
+        }).then(response => {
+            if (response.ok) {
+                alert('Kitap başarıyla eklendi!');
+                window.location.href = '/books.html';
+            } else {
+                return response.json().then(error => {
+                    if (error.errors) {
+                        let errorMessage = error.message + '\n\n';
+                        Object.entries(error.errors).forEach(([field, errors]) => {
+                            errorMessage += `${field}: ${errors}\n`;
+                        });
+                        alert(errorMessage);
+                    } else {alert('Bir hata oluştu:'+error.message)}
+                })
+            }
+        }).catch(error => {
+            alert('Bağlantı hatası: ' + error.message);
         })
-            .then(response => {
-                if (response.ok) {
-                    alert('Kitap başarıyla eklendi!');
-                    window.location.href = '/books.html'; // Liste sayfasına yönlendirme
-                } else {
-                    alert('Bir hata oluştu.');
-                }
-            });
-        console.log(JSON.stringify(book));
     });
 </script>
 </body>
