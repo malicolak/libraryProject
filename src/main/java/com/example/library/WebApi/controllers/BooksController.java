@@ -28,7 +28,7 @@ public class BooksController {
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void add(@Valid CreateBookRequest request){
+    public void add(@Valid @RequestBody CreateBookRequest request){
         this.bookService.add(request);
     }
 
@@ -40,7 +40,7 @@ public class BooksController {
 
     @PutMapping("/update")
     @ResponseStatus(code = HttpStatus.OK)
-    public void update(@Valid UpdateBookRequest request){
+    public void update(@Valid @RequestBody UpdateBookRequest request){
         this.bookService.update(request);
     }
 
