@@ -47,6 +47,12 @@ public class BookManager implements BookService {
 
     @Override
     public void update(UpdateBookRequest request) {
+
+
+        this.bookBusinessRules.checkIfBookExists(
+                request.getTitle(), request.getAuthor(), request.getPublisher(), request.getPageCount(), request.getPublishDate()
+        );
+
         Book book = this.modelMapperService.forRequest().map(request,Book.class);
         this.bookRepository.save(book);
     }
