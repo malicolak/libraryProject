@@ -41,35 +41,39 @@
         cursor: pointer;
     }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    fetch('/api/books/getall', { method: 'GET'})
-        .then(res => res.json())
-        .then(data => {
+    axios.get('http://localhost:8080/api/books/getall')
+        .then(response => {
+            const books = response.data;
             const tbody = document.querySelector('#bookTable tbody');
-            data.forEach(book => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-          <td>${book.id}</td>
-          <td>${book.title}</td>
-          <td>${book.author}</td>
-          <td>${book.publisher}</td>
-          <td>${book.pageCount}</td>
-          <td>${book.publishDate}</td>
-          <td>
-            <button onclick="deleteBook(${book.id})">Sil</button>
-            <button onclick="editBook(${book.id})">Düzenle</button>
-          </td>
-        `;
-                tbody.appendChild(row);
+            books.forEach(book => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${book.id}</td>
+              <td>${book.title}</td>
+              <td>${book.author}</td>
+              <td>${book.publisher}</td>
+              <td>${book.pageCount}</td>
+              <td>${book.publishDate}</td>
+              <td>
+                <button onclick="deleteBook(${book.id})">Sil</button>
+                <button onclick="editBook(${book.id})">Düzenle</button>
+              </td>
+            `;
+            tbody.appendChild(row);
             });
-        });
-
+        })
     function deleteBook(id) {
-        fetch('/api/books/delete/' + id, { method: 'DELETE' })
-            .then(() => location.reload());
-        alert("Kitap silindi.");
+        axios.delete(`http://localhost:8080/api/books/delete/${id}`)
+            .then(response => {
+                alert("Kitap silindi.");
+                location.reload();
+            })
+            .catch(error => {
+                console.error("Kitap silinemedi:", error);
+            });
     }
-
     function editBook(id) {
         location.href = 'editbook.html?id=' + id;
     }
