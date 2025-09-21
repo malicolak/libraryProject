@@ -17,7 +17,7 @@
     }
     h1 { color: #333; }
     label { display: block; margin-top: 10px; }
-    input { width: 20%; padding: 8px; margin-top: 5px; }
+    input { width: 20%; padding: 8px; margin-top: 5px; border-radius: 10px;}
     button {
         margin-top: 10px;
         margin-left: 6%;
@@ -26,24 +26,27 @@
         color: white;
         border: none;
         cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     }
 </style>
 <h1>Yeni Kitap Ekle</h1>
 <form id="bookForm">
     <label>Başlık:</label><br>
-    <input type="text" name="title" required><br><br>
+    <input type="text" name="title" required placeholder="Kitap Adı"><br><br>
 
     <label>Yazar:</label><br>
-    <input type="text" name="author" required><br><br>
+    <input type="text" name="author" required placeholder="Yazar Adı"><br><br>
 
     <label>Yayınevi:</label><br>
-    <input type="text" name="publisher"><br><br>
+    <input type="text" name="publisher" required placeholder="Yayınevi Adı"><br><br>
 
     <label>Sayfa Sayısı:</label><br>
-    <input type="number" name="pageCount"><br><br>
+    <input type="number" name="pageCount" required placeholder="Sayfa Sayısı"><br><br>
 
     <label>Yayın Tarihi:</label><br>
-    <input type="date" name="publishDate"><br><br>
+    <input type="date" name="publishDate" required placeholder="Yayınlanma Tarihi"><br><br>
 
     <button type="submit">Kitabı Ekle</button>
 </form>

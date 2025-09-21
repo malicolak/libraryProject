@@ -11,20 +11,20 @@
 <h1>Kitap Güncelle!</h1>
     <form id="editForm">
 
-        <label>Başlık:</label>
-        <input type="text" id="title" /><br/>
+        <label>Başlık:</label><br>
+        <input type="text" id="title" required placeholder="Kitap Adı"><br><br>
 
-        <label>Yazar:</label>
-        <input type="text" id="author" /><br/>
+        <label>Yazar:</label><br>
+        <input type="text" id="author" required placeholder="Yazar Adı"><br><br>
 
-        <label>Yayınevi:</label>
-        <input type="text" id="publisher" /><br/>
+        <label>Yayınevi:</label><br>
+        <input type="text" id="publisher" required placeholder="Yayınevi Adı"><br><br>
 
-        <label>Sayfa Sayısı:</label>
-        <input type="number" id="pageCount" /><br/>
+        <label>Sayfa Sayısı:</label><br>
+        <input type="number" id="pageCount" required placeholder="Sayfa Sayısı"><br><br>
 
-        <label>Yayın Tarihi:</label>
-        <input type="date" id="publishDate" /><br/>
+        <label>Yayın Tarihi:</label><br>
+        <input type="date" id="publishDate" required placeholder="Yayınlanma Tarihi"><br><br>
 
     <button type="submit">Güncelle</button>
 </form>
@@ -40,15 +40,18 @@
     }
     h1 { color: #333; }
     label { display: block; margin-top: 10px; }
-    input { width: 20%; padding: 8px; margin-top: 5px; }
+    input { width: 20%; padding: 8px; margin-top: 5px; border-radius: 10px; }
     button {
-        margin-top: 10px;
+        margin-top: 25px;
         margin-left: 6%;
         padding: 10px 20px;
         background-color: #4CAF50;
         color: white;
         border: none;
         cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     }
 </style>
 </body>
