@@ -16,7 +16,12 @@
 <div style="margin-left: 45%; margin-top: 1%"><button onclick="addBook()">Yeni Kitap Ekle</button></div>
 </body>
 <style>
-    body { font-family: Arial, sans-serif; }
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url("images/library.jpg");
+        background-size: cover;
+        background-position: top;
+    }
     h1 { color: #333; }
     table {
         border-collapse: collapse;
@@ -24,6 +29,10 @@
         margin-top: 20px;
         border: 1px solid chocolate;
         border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: burlywood;
+        opacity: 0.75;
     }
     th, td {
         padding: 8px;
@@ -31,6 +40,7 @@
     }
     th { background-color: #f2f2f2; }
     tr:nth-child(even) { background-color: #f9f9f9; }
+    tr:nth-child(odd) { background-color: #ffffff; }
     tr:hover { background-color: #f1f1f1; }
     button {
         margin-right: 5px;
